@@ -1,7 +1,7 @@
 lists = new Meteor.Collection("Lists");
 
 if (Meteor.isClient) {
-  //lists = new Meteor.Collection("Lists");
+  // Account signup 
   Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY'
   });
@@ -11,19 +11,6 @@ if (Meteor.isClient) {
   Meteor.autosubscribe(function() {
     Meteor.subscribe("listdetails", Session.get('current_list'));
   });
-  /*
-  Template.hello.greeting = function () {
-    return "my list.";
-  };
-
-  Template.hello.events({
-    'click input' : function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
-*/
 
   Template.categories.lists = function() {
     return lists.find({}, {sort: {Category: 1}});
@@ -52,11 +39,10 @@ if (Meteor.isClient) {
           Session.set('adding_category', false);
         }
       }
-    },
-    /* 
+    }, 
     'focusout #add-category': function(e, t) {
       Session.set('adding_category', false);
-    }, */
+    }, 
     'click .category': selectCategory
   });
 
@@ -188,11 +174,6 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
   });
 }
-
-/* function adminUser(userId) {
-  var adminUser = Meteor.users.findOne({username:"admin"});
-  return (userId && adminUser && userId === adminUser._id);
-} */
 
 lists.allow({
   insert: function(userId, doc){

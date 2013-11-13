@@ -1,0 +1,72 @@
+<head>
+  <title>Lending Tracker</title>
+</head>
+
+<body>
+	<h1>Lending Tracker</h1>
+	<h3>Created at <a href="http://codeday.org">CodeDay</a> Chicago</h3>
+
+	<p>Click 'Sign in' and create an account to start.</p>
+	<p>Keep track of what you lend to others.</p>
+	<p>Click on the + to create a new category.</p>
+	<p>Click on the category to add items to the list.</p>
+	<p>Created by <a href="http://fisheradelakin.com">Fisher Adelakin</a></p>
+	<div style="float: right; margin-right:60px;">
+		{{loginButtons align="right"}}
+	</div>
+	<div id="lendlib">
+  		<div id="categories-container">
+  			{{> categories}}
+  		</div>
+  		<div id="list">
+  			{{> list}}
+  		</div>
+  	</div>
+</body>
+
+
+<template name="categories">
+	<h4 class="title">my stuff</h4>
+
+	<div id="categories" class="btn-group">
+		{{#if new_cat}}
+			<div class="category">
+				<input type="text" id="add-category" value="" />
+			</div>
+		{{else}}
+			<div class="category btn btn-inverse" id="btnNewCat">&plus;</div>
+		{{/if}}
+
+		{{#each lists}}
+		<div class="category btn {{list_status}}" id="{{_id}}">
+			{{Category}}
+		</div>
+		{{/each}}
+	</div>
+</template>
+
+<template name="list">
+		<ul id="lending_list">
+			{{#each items}}
+			<li class="lending_item alert">
+				<button type="button" class="close delete_item" id="{{Name}}">x</button>
+
+				{{Name}}
+
+				{{#if lendee_editing}}
+					<input type="text" id="edit_lendee" class="span2 pull-right" value=""/>
+				{{else}}
+					<div class="lendee pull-right label {{LendClass}}">
+						{{Lendee}}</div>
+				{{/if}}
+			</li>
+			{{/each}}
+			{{#if list_selected}}
+				<li class="alert-success" id="btnAddItem">&plus;
+					{{#if list_adding}}
+						<input class="span4" id="item_to_add" size="32" type="text">
+					{{/if}}
+				</li>
+			{{/if}}
+		</ul>
+</template>

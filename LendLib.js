@@ -52,6 +52,7 @@ if (Meteor.isClient) {
     i.select();
   };
 
+
   function selectCategory(e, t) {
     Session.set('current_list', this._id);
   }

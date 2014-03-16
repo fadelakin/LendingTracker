@@ -1,5 +1,6 @@
 lists = new Meteor.Collection("Lists");
 
+// front end stuff
 if (Meteor.isClient) {
   // Account signup 
   Accounts.ui.config({
@@ -163,6 +164,7 @@ if (Meteor.isClient) {
   });
 }
 
+// server stuff
 if (Meteor.isServer) {
   Meteor.publish('Categories', function () {
       return lists.find({owner:this.userId}, {fields:{Category:1}});
@@ -176,6 +178,7 @@ if (Meteor.isServer) {
   });
 }
 
+// display lists for userId
 lists.allow({
   insert: function(userId, doc){
     return (userId) || (userId && doc.owner === userId);
